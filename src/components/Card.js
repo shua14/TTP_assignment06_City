@@ -3,10 +3,9 @@ import React from 'react'
 export default function Card (props) {
     const city = props.info;
     return (
+        // simple card component - renders a div with the information, as shown in the example
         <div className='card'>
-            <div className= "topLine">
-                <h2>&emsp;{`${city.City}, ${city.State}`}</h2>
-            </div>
+            <h1>&emsp;{`${city.LocationText}`}</h1>
             <ul>
                 <li>&nbsp;{`State: ${city.State}`}</li>
                 <li>&nbsp;{`Location: (${city.Lat}, ${city.Long})`}</li>
