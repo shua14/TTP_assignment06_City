@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/TTP_assignment06_zip/static/css/main.469cfecd.css",
+    "main.js": "/TTP_assignment06_zip/static/js/main.e930c50d.js",
+    "index.html": "/TTP_assignment06_zip/index.html",
+    "main.469cfecd.css.map": "/TTP_assignment06_zip/static/css/main.469cfecd.css.map",
+    "main.e930c50d.js.map": "/TTP_assignment06_zip/static/js/main.e930c50d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.469cfecd.css",
+    "static/js/main.e930c50d.js"
+  ]
+}
