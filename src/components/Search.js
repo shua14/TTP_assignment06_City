@@ -5,7 +5,7 @@ export default function Search() {
     const [cards, setCards] = useState("");
     let searchText; 
     useEffect(() => {
-        searchText = document.getElementById('zipSearch');
+        searchText = document.getElementById('zipCode');
         searchText.addEventListener('keyup', () => {
             if (searchText.value.length !== 5 || !Number(searchText.value)) {
                 setCards(<h1>Not a zipcode</h1>);
@@ -19,8 +19,8 @@ export default function Search() {
         })
     }, []);
     return (
-        <>
+        <div className="cards">
             {cards}
-        </>
+        </div>
     )
 }
