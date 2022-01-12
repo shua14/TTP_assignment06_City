@@ -8,7 +8,7 @@ export default function Search() {
     useEffect(() => {
         // To avoid rerendering ad inifinitum we wrap the fetch cycle in useEffect()
         searchText = document.getElementById('city');
-        searchText.addEventListener('pointerleave', () => {
+        searchText.addEventListener('keyup', () => {
             // 'fancy' responsing to each key entered
             if (searchText.value.length>15) {
                 // avoid API calls when they're bound to fail

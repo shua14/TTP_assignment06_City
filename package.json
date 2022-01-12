@@ -1,5 +1,5 @@
 {
-  "homepage":"https://rivka99.github.io/TTP_assignment06_zip/",
+  "homepage": "https://shua14.github.io/TTP_assignment06_City/",
   "name": "zip-search",
   "version": "0.1.0",
   "private": true,
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "gh-pages": "^3.2.3",
+    "github-pages": "^3.0.2",
     "web-vitals": "^2.1.3"
   }
 }

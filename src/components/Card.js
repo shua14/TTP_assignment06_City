@@ -7,8 +7,7 @@ export default function Card (props) {
     return (
         // simple card component - renders a div with the information, as shown in the example
         <div className='card'>
-                <h2>{zip}</h2>
-            
+                <h2>{zip}</h2>      
         </div>
     )
 } 
