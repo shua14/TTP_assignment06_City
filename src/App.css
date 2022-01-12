@@ -27,9 +27,8 @@ h1,h2 {
   margin-bottom: 10px;
   text-align: left;
   vertical-align: middle;
-  border-style: solid;
-  border-width: thin;
-  border-color: rgba(grey);
+  border: 2px solid grey;
+  
 }
 
 .topLine {

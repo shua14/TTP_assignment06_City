@@ -3,7 +3,6 @@ import Card from "./Card"
 
 export default function Search() {
     // Main function component, responsible for rendering cards depending on the value in the search box
-    const [zips, setZips] = useState([0]);
     const [cards, setCards] = useState("");
     let searchText; 
     useEffect(() => {
@@ -13,7 +12,7 @@ export default function Search() {
             // 'fancy' responsing to each key entered
             if (searchText.value.length>15) {
                 // avoid API calls when they're bound to fail
-                setZips(<h1>Not a City</h1>);
+                setCards(<h1>Not a City</h1>);
             } else {
                 // API call
                 fetch("https://ctp-zip-api.herokuapp.com/city/" + (searchText.value).toUpperCase())
@@ -25,28 +24,9 @@ export default function Search() {
                             // Search component renders cards with data from the API passed as props
                            
                             setCards(res.map((x) => <Card info={x}/>));
-                            console.log(cards)
-                            // for(let i=0; i<res.length; i++){
-                            //     console.log(res)
-                            //     setZips(prevThingsArray => {
-                            //         return [...prevThingsArray, res[i]]
-                            //     })
-                            // }
-                            // newCities = citiesArr.map(citiesArr => {
-          
-                            //     return (
-                            //         <Card
-                            //             city={citiesArr.City}
-                            //             state={citiesArr.State}
-                            //             zip = {citiesArr.Zipcode}
-                            //         />
-                            //     )
-                            // }) 
-                            // setCity1(newCities)
                             
-                            // setCards(res.map((x) => <Card info={x}/>));
                         } else {
-                            setZips(<h1>Not Found</h1>)
+                            setCards(<h1>Not Found</h1>)
                         }
                     })
                     .catch(e => console.log('Connection error', e))
