@@ -5,12 +5,14 @@ export default function Card (props) {
     return (
         // simple card component - renders a div with the information, as shown in the example
         <div className='card'>
-            <h1>{`${city.LocationText}`}</h1>
+            <div className= "topLine">
+                <h2>&emsp;{`${city.LocationText}`}</h2>
+            </div>
             <ul>
-                <li>{`State: ${city.State}`}</li>
-                <li>{`Location: (${city.Lat}, ${city.Long})`}</li>
-                <li>{`Population (estimated): ${city.EstimatedPopulation ? city.EstimatedPopulation : "No data"}`}</li>
-                <li>{`Total Wages: ${city.TotalWages ? city.TotalWages : "No data"}`}</li>
+                <li>&nbsp;{`State: ${city.State}`}</li>
+                <li>&nbsp;{`Location: (${city.Lat}, ${city.Long})`}</li>
+                <li>&nbsp;{`Population (estimated): ${city.EstimatedPopulation ? city.EstimatedPopulation : "No data"}`}</li>
+                <li>&nbsp;{`Total Wages: ${city.TotalWages ? city.TotalWages : "No data"}`}</li>
             </ul>
         </div>
     )
