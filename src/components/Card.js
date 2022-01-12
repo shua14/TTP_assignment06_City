@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function Card (props) {
-    const city = props.info;
+
+    const city = props.info
+
     return (
-        <>
+        <>     
             <h1>{`${city.City}, ${city.State}`}</h1>
             <ul>
                 <li>{`State: ${city.State}`}</li>
