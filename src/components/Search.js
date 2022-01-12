@@ -3,28 +3,50 @@ import Card from "./Card"
 
 export default function Search() {
     // Main function component, responsible for rendering cards depending on the value in the search box
+    const [zips, setZips] = useState([0]);
     const [cards, setCards] = useState("");
     let searchText; 
     useEffect(() => {
         // To avoid rerendering ad inifinitum we wrap the fetch cycle in useEffect()
-        searchText = document.getElementById('zipCode');
-        searchText.addEventListener('keyup', () => {
+        searchText = document.getElementById('city');
+        searchText.addEventListener('pointerleave', () => {
             // 'fancy' responsing to each key entered
-            if (searchText.value.length !== 5 || !Number(searchText.value)) {
+            if (searchText.value.length>15) {
                 // avoid API calls when they're bound to fail
-                setCards(<h1>Not a Zipcode</h1>);
+                setZips(<h1>Not a City</h1>);
             } else {
                 // API call
-                fetch("https://ctp-zip-api.herokuapp.com/zip/" + searchText.value)
+                fetch("https://ctp-zip-api.herokuapp.com/city/" + (searchText.value).toUpperCase())
                     .then(async (res) => {
                         // Some 404 Error Handling to avoid trying to parse "Not Found" as JSON 
                         if (res.ok) {
                             // no 404 - data -is- returned
                             res = await res.json();
                             // Search component renders cards with data from the API passed as props
-                            setCards(res.map((x) => <Card key={x.RecordNumber} info={x}/>));
+                           
+                            setCards(res.map((x) => <Card info={x}/>));
+                            console.log(cards)
+                            // for(let i=0; i<res.length; i++){
+                            //     console.log(res)
+                            //     setZips(prevThingsArray => {
+                            //         return [...prevThingsArray, res[i]]
+                            //     })
+                            // }
+                            // newCities = citiesArr.map(citiesArr => {
+          
+                            //     return (
+                            //         <Card
+                            //             city={citiesArr.City}
+                            //             state={citiesArr.State}
+                            //             zip = {citiesArr.Zipcode}
+                            //         />
+                            //     )
+                            // }) 
+                            // setCity1(newCities)
+                            
+                            // setCards(res.map((x) => <Card info={x}/>));
                         } else {
-                            setCards(<h1>Not Found</h1>)
+                            setZips(<h1>Not Found</h1>)
                         }
                     })
                     .catch(e => console.log('Connection error', e))

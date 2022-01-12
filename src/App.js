@@ -6,13 +6,13 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>
-          Zip Code App
+          City Search App
         </h1>
       </header>
       
       <div className="text-field">
-        <label for="zipCode"><strong>Zip Code:</strong></label>
-        <input type="text" id="zipCode" name="zipCode"></input>
+        <label type="city"><strong>City:</strong></label>
+        <input type="text" id="city" name="zipCode"></input>
       </div>
       <Search />
     </div>
