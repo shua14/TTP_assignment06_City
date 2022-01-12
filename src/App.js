@@ -1,5 +1,4 @@
 import './App.css';
-import Main from './components/Main'
 import Search from './components/Search'
 
 function App() {
@@ -15,6 +14,7 @@ function App() {
         <label for="zipCode"><strong>Zip Code:</strong></label>
         <input type="text" id="zipCode" name="zipCode"></input>
       </div>
+      <Search />
     </div>
   );
 }

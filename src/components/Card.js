@@ -8,8 +8,8 @@ export default function Card (props) {
             <ul>
                 <li>{`State: ${city.State}`}</li>
                 <li>{`Location: (${city.Lat}, ${city.Long})`}</li>
-                <li>{`Population (estimated): ${city.EstimatedPopulation}`}</li>
-                <li>{`Total Wages: ${city.TotalWages}`}</li>
+                <li>{`Population (estimated): ${city.EstimatedPopulation ? city.EstimatedPopulation : "No data"}`}</li>
+                <li>{`Total Wages: ${city.TotalWages ? city.TotalWages : "No data"}`}</li>
             </ul>
         </div>
     )
