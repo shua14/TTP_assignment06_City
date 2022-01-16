@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Loading from "./Loading"
+import Intro from "./Intro";
 import CityCard from "./CityCard";
 
 export default function Search() {
     // Main function component, responsible for rendering cards depending on the value in the search box
-    const [cards, setCards] = useState("");
+    const [cards, setCards] = useState(<Intro />);
     const [loading, setLoading] = useState(false);
     let searchText; 
     // To avoid rerendering ad inifinitum we wrap the fetch cycle in useEffect()
@@ -13,7 +14,7 @@ export default function Search() {
         // fetching on every keyup can be cumbersome, here's a 1 second debounce
         searchText.addEventListener('keyup', debounce(async () => {
            await keyupHandler();
-        }, 1000))
+        },1000))
     }, []);
 
     function debounce(callback, wait) {
@@ -29,7 +30,7 @@ export default function Search() {
     async function keyupHandler () {
         const enteredCity = searchText.value.toUpperCase();
         if (enteredCity.length > 22 || enteredCity.length === 0) {
-            // avoid API calls when they're bound to fail
+            // avoid API calls when they're unlikely to be useful
             // https://worldpopulationreview.com/world-city-rankings/longest-city-names
             setCards(<h1>Not a City</h1>);
         } else {
@@ -43,7 +44,7 @@ export default function Search() {
                     // might take a while (10 is probably a bit on the conservative side though)
                     setLoading(true);
                 }
-                // zipFetcher fetches an array of city objects that match the city name from the search input
+                // zipFetcher builds an array of city objects that match the city name from the search input
                 const cities = await zipFetcher(allZips, enteredCity);
                 // we now have all the data - time to organize
                 const byState = cityOrganizer(cities);
@@ -59,16 +60,16 @@ export default function Search() {
     }
 
     async function zipFetcher (allZips, query) {
-        // for each zipcode returned from the city endpoint,
-        // fetches and filters city data obtained from its zip endpoint,
-        // discarding city data of received entries not matching the query
+        // fetches city data for all the zipcodes obtained from the city endpoint
+        // then filters them, discarding invalid or irrelevant city data
         const responses = await Promise.all(allZips.map(zipcode => fetch("https://ctp-zip-api.herokuapp.com/zip/" + zipcode)));
         const parsed = await Promise.all(responses.map(res => res.json()));
         const cities = Array.prototype.concat.apply([], parsed);
         const citiesFiltered = cities.filter(x => {
-            // get rid of non-matching, not acceptable and/or decommisioned zipcodes for each city
+            // clean the results from non-matching, not acceptable, and/or decommisioned zipcodes
             return (x.City === query && x.ZipcodeType !== 'NOT ACCEPTABLE' && x.Decommisioned === 'false')
         });
+        console.log(citiesFiltered);
         return citiesFiltered;
     }
 
