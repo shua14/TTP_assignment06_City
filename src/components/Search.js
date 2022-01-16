@@ -27,7 +27,7 @@ export default function Search() {
     }
     
     async function keyupHandler () {
-        const enteredCity = searchText.value;
+        const enteredCity = searchText.value.toUpperCase();
         if (enteredCity.length > 22 || enteredCity.length === 0) {
             // avoid API calls when they're bound to fail
             // https://worldpopulationreview.com/world-city-rankings/longest-city-names
@@ -37,7 +37,7 @@ export default function Search() {
             // Some 404 Error Handling to avoid trying to parse "Not Found" as JSON 
             try {
                 // first fetch - all the zipcodes returned from the city query:
-                const res = await fetch("https://ctp-zip-api.herokuapp.com/city/" + (enteredCity).toUpperCase());
+                const res = await fetch("https://ctp-zip-api.herokuapp.com/city/" + enteredCity);
                 const allZips = await res.json();
                 if (allZips.length > 10) {
                     // might take a while (10 is probably a bit on the conservative side though)
@@ -58,22 +58,18 @@ export default function Search() {
         }
     }
 
-    async function zipFetcher (allZips, city) {
+    async function zipFetcher (allZips, query) {
         // for each zipcode returned from the city endpoint,
         // fetches and filters city data obtained from its zip endpoint,
         // discarding city data of received entries not matching the query
-        const cities = [];
-        for (let i = 0; i < allZips.length; i++){
-            // presumably every zipcode coming from the city endpoint will be in the zip endpoint?
-            const res = await fetch("https://ctp-zip-api.herokuapp.com/zip/" + allZips[i]);
-            const cityData = await res.json();
-            for (let i in cityData) {
-                if (cityData[i].City.toLowerCase() === city.toLowerCase()) {
-                    cities.push(cityData[i]);
-                }
-            }
-        }
-        return cities;
+        const responses = await Promise.all(allZips.map(zipcode => fetch("https://ctp-zip-api.herokuapp.com/zip/" + zipcode)));
+        const parsed = await Promise.all(responses.map(res => res.json()));
+        const cities = Array.prototype.concat.apply([], parsed);
+        const citiesFiltered = cities.filter(x => {
+            // get rid of non-matching, not acceptable and/or decommisioned zipcodes for each city
+            return (x.City === query && x.ZipcodeType !== 'NOT ACCEPTABLE' && x.Decommisioned === 'false')
+        });
+        return citiesFiltered;
     }
 
     function cityOrganizer (cities) {
