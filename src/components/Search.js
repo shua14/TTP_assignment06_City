@@ -29,10 +29,12 @@ export default function Search() {
     
     async function keyupHandler () {
         const enteredCity = searchText.value.toUpperCase();
-        if (enteredCity.length > 22 || enteredCity.length === 0) {
+        if (enteredCity.length > 22) {
             // avoid API calls when they're unlikely to be useful
             // https://worldpopulationreview.com/world-city-rankings/longest-city-names
             setCards(<h1>Not a City</h1>);
+        } else if (enteredCity.length === 0) {
+            setCards(<Intro />);
         } else {
             // API calls
             // Some 404 Error Handling to avoid trying to parse "Not Found" as JSON 
@@ -40,8 +42,8 @@ export default function Search() {
                 // first fetch - all the zipcodes returned from the city query:
                 const res = await fetch("https://ctp-zip-api.herokuapp.com/city/" + enteredCity);
                 const allZips = await res.json();
-                if (allZips.length > 10) {
-                    // might take a while (10 is probably a bit on the conservative side though)
+                if (allZips.length > 5) {
+                    // might take a while (5 is probably a bit on the conservative side though)
                     setLoading(true);
                 }
                 // zipFetcher builds an array of city objects that match the city name from the search input

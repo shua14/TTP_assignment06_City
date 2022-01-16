@@ -4,7 +4,6 @@ import states from './states'
 export default function CityCard (props) {
 
     const city = props.data
-    let wages;
     
     return (
         // simple card component - renders a div with the information, as shown in the example

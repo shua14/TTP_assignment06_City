@@ -1,3 +1,4 @@
+// a convenience mapper of state abbreviations coming from the API to full state names for the cards
 const states = {
     "AL": "Alabama",
     "AK": "Alaska",
