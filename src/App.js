@@ -11,8 +11,8 @@ function App() {
       </header>
       
       <div className="text-field">
-        <label type="city"><strong>City:</strong></label>
-        <input type="text" id="city" name="zipCode"></input>
+        {/* <label type="city"><strong>City:</strong></label> */}
+        <input type="text" id="city" name="zipCode" placeholder='Try "Brooklyn"'></input>
       </div>
       <Search />
     </div>
