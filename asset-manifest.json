@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/TTP_assignment06_City/static/css/main.7bcc2a85.css",
-    "main.js": "/TTP_assignment06_City/static/js/main.cfe573bc.js",
+    "main.js": "/TTP_assignment06_City/static/js/main.23f59af0.js",
     "static/media/loading.gif": "/TTP_assignment06_City/static/media/loading.6281c6f4a9b357ce7536.gif",
     "index.html": "/TTP_assignment06_City/index.html",
     "main.7bcc2a85.css.map": "/TTP_assignment06_City/static/css/main.7bcc2a85.css.map",
-    "main.cfe573bc.js.map": "/TTP_assignment06_City/static/js/main.cfe573bc.js.map"
+    "main.23f59af0.js.map": "/TTP_assignment06_City/static/js/main.23f59af0.js.map"
   },
   "entrypoints": [
     "static/css/main.7bcc2a85.css",
-    "static/js/main.cfe573bc.js"
+    "static/js/main.23f59af0.js"
   ]
 }
