@@ -14,7 +14,6 @@ export default function Search() {
         searchText.addEventListener('keyup', debounce(async () => {
            await keyupHandler();
         }, 1000))
-
     }, []);
 
     function debounce(callback, wait) {
@@ -48,7 +47,7 @@ export default function Search() {
                 const cities = await zipFetcher(allZips, enteredCity);
                 // we now have all the data - time to organize
                 const byState = cityOrganizer(cities);
-                const states = Object.keys(byState);
+                const states = Object.keys(byState).sort();
                 // ready to render the city cards
                 setCards(states.map((x) => <CityCard key={byState[x].RecordNumber} data={byState[x]} />));
                 setLoading(false);
@@ -60,8 +59,9 @@ export default function Search() {
     }
 
     async function zipFetcher (allZips, city) {
-        // effectively filters the data obtained from the city endpoint,
-        // discarding city data for non-matching responses from zipcode endpoints
+        // for each zipcode returned from the city endpoint,
+        // fetches and filters city data obtained from its zip endpoint,
+        // discarding city data of received entries not matching the query
         const cities = [];
         for (let i = 0; i < allZips.length; i++){
             // presumably every zipcode coming from the city endpoint will be in the zip endpoint?
@@ -80,7 +80,7 @@ export default function Search() {
         // input: array of city objects that match the search term
         // output: an object of State : City Object pairs
         // City Objects (i.e., for each city, the total of all zipcodes corresponding to the search term city)
-        // have their population and wages values summed in the final object and all zipcodes are put into one array value
+        // have their population and wages values summed in the final object and all zipcodes are put into one array property
         const byState = {};
         for (let i = 0; i < cities.length; i++) {
             if (byState[cities[i].State]) {
